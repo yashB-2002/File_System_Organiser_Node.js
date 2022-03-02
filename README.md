@@ -5,8 +5,15 @@
 - This is done using Node.js modules like path and fs module.
 
 - This file organizer can be used by typing following commands on terminal -:
-# node main.js organize "directory path"
+
+# 1) node main.js organize "directory path" 
 
 - 1) main.js -> It is main file in which code is present. So { node main.js } will run this file.
 - 2)  "organize" is command name which we want to execute.
 - 3) "directory path" is path of directory/folder which we want to organize.
+
+# 2) node main.js tree "directory path"
+- 1) This command will help to show heirarchial view of directories.
+
+# 3) node main.js help
+- This command is used to check list of commands available.
