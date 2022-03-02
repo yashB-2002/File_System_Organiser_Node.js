@@ -12,6 +12,9 @@ let categorizes  = {
     documents: ['docx', 'doc', 'pdf', 'xlsx', 'xls', 'odt', 'ods', 'odp', 'odg', 'odf', 'txt', 'ps', 'tex'] 
 }
 switch (cmd) {
+    case "tree" :
+        tree(input[1]);
+        break;
     case "organize":
         organize(input[1]);
         break;
@@ -21,6 +24,11 @@ switch (cmd) {
     default:
         console.log("enter right cmd ");
 }
+
+
+// --------------------------------------------------------------
+// organize functionality
+
 
 function organize(dirpath) {
     if(dirpath == undefined) {
@@ -79,9 +87,47 @@ function getFileExt(fileName) {
     }
     return "invalid category";
 }
+// --------------------------------------------------------------
+// tree functionality
+
+function tree(dirpath) {
+    if(dirpath == undefined) {
+        console.log("path unavailable");
+        return;
+    }
+    else {
+        if(fs.existsSync(dirpath)) {
+            treefn(dirpath);
+        }
+        else {
+            console.log("Enter valid path");
+            return;
+        }
+    }
+}
+function treefn(dirpath) {
+    let isDir = fs.lstatSync(dirpath).isDirectory();
+    if(isDir) {
+        let dirName = path.basename(dirpath);
+        console.log("folder Name " + dirName );
+        let filesArr = fs.readdirSync(dirpath);
+        for(let i=0; i < filesArr.length; i++) {
+            let childPath = path.join(dirpath,filesArr[i]);
+            treefn(childPath);
+        }
+    }
+    else {
+        console.log("  |-------- "  + path.basename(dirpath) + "\t");
+    }
+}
+
+// --------------------------------------------------------------
+// help functionality
+
 function help() {
     console.log(`
         node main.js organize "dirPath"
+        node main.js tree "dirPath"
         node main.js help
     `);
 }
